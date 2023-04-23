@@ -39,6 +39,8 @@ class MyBarGraph extends StatelessWidget {
     return BarChart(BarChartData(
       maxY: maxY,
       minY: 0,
+      gridData: FlGridData(show:false),
+      borderData: FlBorderData(show: false),
       barGroups:
        myBarData.barData.map(
         (data) => BarChartGroupData(x: data.x,
