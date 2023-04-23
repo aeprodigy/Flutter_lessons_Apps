@@ -1,3 +1,5 @@
+import 'package:expense_tracker/components/expense_summary.dart';
+import 'package:expense_tracker/components/expense_tile.dart';
 import 'package:expense_tracker/data/expense_data.dart';
 import 'package:expense_tracker/models/expense_item.dart';
 import 'package:flutter/material.dart';
@@ -77,22 +79,32 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ExpenseData>(
-        builder: (context, value, child) => Scaffold(
-              backgroundColor: Colors.grey[200],
-              floatingActionButton: FloatingActionButton(
-                onPressed: addNewExpense,
-                child: Icon(
-                  Icons.add,
-                ),
-              ),
-              body: ListView.builder(
-                itemCount: value.getAllExpenses().length,
-                itemBuilder: (context, index) =>
-                    ListTile(title: Text(value.getAllExpenses()[index].name),
-                    subtitle:Text(value.getAllExpenses()[index].dateTime.toString()),
-                    trailing: Text('\K ' + value.getAllExpenses()[index].amount),
-                    ),
-              ),
-            ));
+      builder: (context, value, child) => Scaffold(
+        backgroundColor: Colors.grey[200],
+        floatingActionButton: FloatingActionButton(
+          onPressed: addNewExpense,
+          child: Icon(
+            Icons.add,
+          ),
+        ),
+        body: ListView(
+          children: [
+          //weekly summary
+          ExpenseSummary(startOfWeek: value.startOfWeekDate()),
+          //expense list
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: value.getAllExpenses().length,
+            itemBuilder: (context, index) => ExpenseTile(
+              name: value.getAllExpenses()[index].name,
+              amount: value.getAllExpenses()[index].amount,
+              dateTime: value.getAllExpenses()[index].dateTime,
+            ),
+          ),
+          ]
+        ),
+      ),
+    );
   }
 }
