@@ -29,10 +29,16 @@ class _HomePageState extends State<HomePage> {
                   //name of the expense in the TextField().
                   TextField(
                     controller: newExpenseNameController,
+                    decoration: InputDecoration(
+                      hintText: "Expense Name"
+                    ) ,
                   ),
                   //name of the expense amount in the TextField().
                   TextField(
                     controller: newExpenseAmountController,
+                    coration:const InputDecoration(
+                      hintText: "Kwacha"
+                    ) 
                   ),
                 ],
               ),
@@ -83,7 +89,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.grey[200],
         floatingActionButton: FloatingActionButton(
           onPressed: addNewExpense,
-          child: Icon(
+          child: const Icon(
             Icons.add,
           ),
         ),
@@ -91,6 +97,9 @@ class _HomePageState extends State<HomePage> {
           children: [
           //weekly summary
           ExpenseSummary(startOfWeek: value.startOfWeekDate()),
+         const SizedBox(
+            height: 20,
+          ),
           //expense list
           ListView.builder(
             shrinkWrap: true,
